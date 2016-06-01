@@ -1,0 +1,17 @@
+PROCEDURE "SAP_HANA_DA"."sfligh.auth::PR_AUTH_CARRID" (OUT CARRID "sfligh.cds::sflight.Carrid" ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY DEFINER 
+	--DEFAULT SCHEMA <default_schema_name>
+	READS SQL DATA AS
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ 
+ CARRID = SELECT DISTINCT "Value"
+			 from "SAP_HANA_DA"."sfligh.cds::sflight.UserAuthorisation" 
+			 	where "User" = SESSION_USER 
+			 UNION 
+				SELECT '99' AS "Value" FROM DUMMY;
+		 
+END;

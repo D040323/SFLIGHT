@@ -1,0 +1,23 @@
+role sfligh.auth::carrier {
+// SAP_HANA_DA is the customized deployment schema for the genrated runtime objects
+// To run reporting it is necessary to have 
+// 1. SELECT privilege on the generated view during runtime (Meta Data Access) 
+// 2. proper defined Analytical privilege (Data Access)
+
+  catalog schema "SAP_HANA_DA": SELECT;
+//SQL-Based Analytic Privileges (Classical Analytical Privilege)
+// AP for Scenario 2
+  catalog analytic privilege: "sfligh.auth/AP_SQL_CARRID";
+  
+// XML-Based Analytic Privileges (Classical Analytical Privilege)  
+// AP for Scenario 1
+  catalog analytic privilege: "sfligh.auth/AP_CLASSIC_CARRID";
+
+// This schema is required to gather metadata information during execution of the query
+  catalog schema "_SYS_BI": SELECT;
+
+// Package privilege is reuired to see the content of the "sfligh" package   
+  package "sfligh": REPO.READ;
+
+  catalog sql object "PUBLIC"."REPOSITORY_REST": EXECUTE;
+ }

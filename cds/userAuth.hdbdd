@@ -1,0 +1,26 @@
+namespace sfligh.cds;
+using sfligh.cds::sflightView.sflight;
+using sfligh.cds::sflight.UserAuthorisation;
+@Schema: 'SAP_HANA_DA'
+
+accesspolicy userAuth{
+// Value restriction base on a generated table of the aspect
+	define aspect aspCarrID as 
+		select from UserAuthorisation { Value } 
+			where $user in UserAuthorisation.User;
+// role to restrict user(s) authorized by CARRID via the aspect aspCarrID.	
+	define role user_CarrID { 
+		grant select on sflight 
+			where CARRID in aspect :aspCarrID; //see aspect above!
+	};
+// role to restricted on CARRID LH                                                                      
+	role sflightAccess {
+        grant select on sflight
+            where CARRID = 'LH';
+    };
+// role to restricted on CARRID AA
+     role sflightAccessAA {
+        grant select on sflight
+            where CARRID = 'AA';
+    };
+}

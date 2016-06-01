@@ -1,0 +1,21 @@
+namespace sfligh.cds;
+
+@Schema: 'SAP_HANA_DA'
+context sflight {
+
+@Catalog.tableType : #COLUMN
+//@Catalog.index: [{name: 'CDSINDEX1', unique: true, order: #ASC, elementNames: ['User','Attribute','Value']}]
+Entity UserAuthorisation {
+	key User: String(200);
+	key Attribute: String(200);
+	key Value: String(200);
+
+
+};
+
+//Output Parameter used for procedure "PR_AUTH_CARRID"
+	type Carrid {
+	    Value : String(2);
+		};
+
+};

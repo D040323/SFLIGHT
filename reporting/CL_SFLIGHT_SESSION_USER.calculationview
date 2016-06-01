@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CL_SFLIGHT_SESSION_USER" applyPrivilegeType="NONE" checkAnalyticPrivileges="false" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="SCRIPT_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" runWithInvokerPrivileges="false" scriptParametersCaseSensitive="true">
+  <descriptions defaultDescription="CL_SFLIGHT_SESSION_USER"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources/>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute datatype="NVARCHAR" id="MANDT" length="3"/>
+        <viewAttribute datatype="NVARCHAR" id="CARRID" length="3"/>
+        <viewAttribute datatype="INTEGER" id="SEATSMAX"/>
+        <viewAttribute datatype="INTEGER" id="SEATSOCC"/>
+        <viewAttribute datatype="DECIMAL" id="PAYMENTSUM" length="17" scale="2"/>
+        <viewAttribute datatype="INTEGER" id="SEATSMAX_B"/>
+        <viewAttribute datatype="INTEGER" id="SEATSOCC_B"/>
+        <viewAttribute datatype="INTEGER" id="SEATSMAX_F"/>
+        <viewAttribute datatype="INTEGER" id="SEATSOCC_F"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <definition> /********* Begin Procedure Script ************/ 
+ BEGIN 
+ 
+ 
+ 	 var_out = select 
+		&quot;MANDT&quot;,
+		&quot;CARRID&quot;,
+		&quot;SEATSMAX&quot;,
+		&quot;SEATSOCC&quot;,
+		&quot;PAYMENTSUM&quot;,
+		&quot;SEATSMAX_B&quot;,
+		&quot;SEATSOCC_B&quot;,
+		&quot;SEATSMAX_F&quot;,
+		&quot;SEATSOCC_F&quot;
+		 from &quot;SFLIGHT&quot;.&quot;SFLIGHT&quot;
+		 where &quot;CARRID&quot; IN 
+		 ( 
+		 SELECT DISTINCT &quot;Value&quot; as &quot;CARRID&quot; 
+			 from &quot;SAP_HANA_DA&quot;.&quot;sfligh.cds::sflight.UserAuthorisation&quot; 
+			 	where &quot;User&quot; = SESSION_USER 
+			 UNION 
+				SELECT '99' AS &quot;CARRID&quot; FROM DUMMY order by CARRID
+		) and 
+		&quot;MANDT&quot; = '300';
+
+END /********* End Procedure Script ************/</definition>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Script_View">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1">
+        <descriptions/>
+        <keyMapping columnObjectName="Script_View" columnName="MANDT"/>
+      </attribute>
+      <attribute id="CARRID" order="2">
+        <descriptions/>
+        <keyMapping columnObjectName="Script_View" columnName="CARRID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="SEATSMAX" order="3" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Script_View" columnName="SEATSMAX"/>
+      </measure>
+      <measure id="SEATSOCC" order="4" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Script_View" columnName="SEATSOCC"/>
+      </measure>
+      <measure id="PAYMENTSUM" order="5" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Script_View" columnName="PAYMENTSUM"/>
+      </measure>
+      <measure id="SEATSMAX_B" order="6" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Script_View" columnName="SEATSMAX_B"/>
+      </measure>
+      <measure id="SEATSOCC_B" order="7" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Script_View" columnName="SEATSOCC_B"/>
+      </measure>
+      <measure id="SEATSMAX_F" order="8" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Script_View" columnName="SEATSMAX_F"/>
+      </measure>
+      <measure id="SEATSOCC_F" order="9" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Script_View" columnName="SEATSOCC_F"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

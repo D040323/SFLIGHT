@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="1.1" id="AP_CLASSIC_CARRID" privilegeType="ANALYTIC_PRIVILEGE">
+  <descriptions defaultDescription="AP_CLASSIC_CARRID"/>
+  <securedModels allInformationModels="false">
+    <modelUri>/sfligh.reporting/calculationviews/CL_SFLIGHT_CLASSIC_AP</modelUri>
+  </securedModels>
+  <restriction logicalOperator="AND">
+    <filter xsi:type="Privilege:AttributeFilter" attributeName="CARRID">
+      <procedureFilter operator="IN" procedureName="sfligh.auth::PR_AUTH_CARRID"/>
+    </filter>
+    <attributeName>CARRID</attributeName>
+    <originInformationModelUri>/sfligh.reporting/calculationviews/CL_SFLIGHT_CLASSIC_AP</originInformationModelUri>
+  </restriction>
+</Privilege:analyticPrivilege>

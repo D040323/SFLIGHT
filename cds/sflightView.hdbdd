@@ -1,0 +1,34 @@
+namespace sfligh.cds;
+
+@Schema: 'SAP_HANA_DA'
+context sflightView {
+@WithStructuredPrivilegeCheck
+    view sflight as select from "SFLIGHT"
+   {
+		MANDT,
+		CARRID,
+		SEATSMAX,
+		SEATSOCC,
+		PAYMENTSUM,
+		SEATSMAX_B,
+		SEATSOCC_B,
+		SEATSMAX_F,
+		SEATSOCC_F
+	};
+	
+	//without Structured Privilege Check
+	  view sflight_wo_auth as select from "SFLIGHT"
+   {
+		MANDT,
+		CARRID,
+		SEATSMAX,
+		SEATSOCC,
+		PAYMENTSUM,
+		SEATSMAX_B,
+		SEATSOCC_B,
+		SEATSMAX_F,
+		SEATSOCC_F
+	};
+	
+		
+};

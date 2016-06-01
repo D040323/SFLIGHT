@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="1.1" id="AP_SQL_CARRID" privilegeType="SQL_ANALYTIC_PRIVILEGE">
+  <descriptions defaultDescription="AP_SQL_CARRID"/>
+  <securedModels allInformationModels="false">
+    <modelUri>/sfligh.reporting/calculationviews/CL_SFLIGHT_SQL_AP</modelUri>
+  </securedModels>
+  <whereSql>CARRID IN ( &#xD;
+SELECT DISTINCT &quot;Value&quot; as &quot;CARRID&quot; &#xD;
+			 from &quot;SAP_HANA_DA&quot;.&quot;sfligh.cds::sflight.UserAuthorisation&quot; &#xD;
+			 	where &quot;User&quot; = SESSION_USER &#xD;
+			 UNION &#xD;
+				SELECT '99' AS &quot;CARRID&quot; FROM DUMMY order by CARRID&#xD;
+			) </whereSql>
+</Privilege:analyticPrivilege>
