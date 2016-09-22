@@ -26,7 +26,7 @@ context sflightView {
 		PAYMENTSUM,
 		SEATSMAX_B,
 		SEATSOCC_B,
-		SEATSMAX_F,
+		SEATSMAX_F,		
 		SEATSOCC_F
 	};
 	

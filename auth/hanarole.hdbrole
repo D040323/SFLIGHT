@@ -1,0 +1,6 @@
+role sfligh.auth::hanarole
+{
+	sql object sfligh.reporting:CL_SFLIGHT_CLASSIC_AP.calculationview: SELECT;
+	sql object sfligh.hdbtable:UserAuthorisation.hdbtable: SELECT;
+	sql object sfligh.cds::sflightView.sflight_wo_auth: SELECT;
+}

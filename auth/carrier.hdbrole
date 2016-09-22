@@ -4,7 +4,7 @@ role sfligh.auth::carrier {
 // 1. SELECT privilege on the generated view during runtime (Meta Data Access) 
 // 2. proper defined Analytical privilege (Data Access)
 
-  catalog schema "SAP_HANA_DA": SELECT;
+  catalog schema "SAP_HANA_DA": SELECT, DEBUG, EXECUTE, INSERT, UPDATE, DELETE, CREATE ANY;
 //SQL-Based Analytic Privileges (Classical Analytical Privilege)
 // AP for Scenario 2
   catalog analytic privilege: "sfligh.auth/AP_SQL_CARRID";
